@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CSAR — Fashion • Films • Music</title>
+  <meta name="description" content="CSAR — the hub for clothes, film-making and music. Shop, watch and listen." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --red-600:#e11d1d;
+      --red-700:#c11212;
+      --red-100:#ffecec;
+      --white:#ffffff;
+      --glass: rgba(255,255,255,0.06);
+      --glass-2: rgba(255,255,255,0.12);
+      --max-width:1200px;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--white),var(--red-100));color:#111}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+
+    /* NAV */
+    header{position:fixed;left:0;right:0;top:0;z-index:100;backdrop-filter: blur(6px);background:linear-gradient(180deg, rgba(255,255,255,0.35), rgba(255,255,255,0.08));border-bottom:1px solid rgba(0,0,0,0.04)}
+    .nav{height:72px;display:flex;align-items:center;justify-content:space-between}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{display:flex;align-items:center;gap:10px}
+    .logo svg{width:46px;height:46px}
+    .brand h1{font-size:18px;margin:0}
+    nav ul{display:flex;gap:18px;align-items:center;margin:0;padding:0;list-style:none}
+    .btn{background:var(--red-600);color:var(--white);padding:10px 14px;border-radius:10px;box-shadow:0 6px 18px rgba(225,29,29,0.18);border:none;cursor:pointer;font-weight:600}
+    .ghost{background:transparent;border:2px solid rgba(0,0,0,0.06);padding:8px 12px;border-radius:10px}
+    .cart-count{background:#fff;color:var(--red-700);padding:4px 8px;border-radius:999px;font-weight:700;border:2px solid rgba(0,0,0,0.04)}
+
+    /* Hero */
+    .hero{min-height:80vh;display:flex;align-items:center;padding-top:120px}
+    .hero-grid{display:grid;grid-template-columns:1fr 420px;gap:36px;align-items:center}
+    .hero-title{font-size:46px;line-height:1.02;margin:0 0 18px}
+    .lead{color:#333;margin-bottom:20px}
+    .cta-row{display:flex;gap:14px}
+
+    /* cards */
+    .card{background:linear-gradient(180deg,var(--white),#fff);border-radius:18px;padding:18px;box-shadow:0 10px 30px rgba(0,0,0,0.08)}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .item,.show{background:linear-gradient(180deg,var(--white),#fff);border-radius:12px;padding:14px;overflow:hidden;position:relative}
+    .item img,.show img{width:100%;height:180px;object-fit:cover;border-radius:8px}
+    .meta{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
+    .item{transition:transform 220ms ease,box-shadow 220ms ease}
+    .item:hover{transform:translateY(-8px);box-shadow:0 20px 40px rgba(0,0,0,0.08)}
+
+    .poster{height:220px;object-fit:cover;border-radius:8px}
+
+    /* music player */
+    .player-mini{display:flex;gap:12px;align-items:center}
+    audio{width:100%}
+
+    /* strip */
+    .strip{display:flex;align-items:center;justify-content:space-between;padding:18px;border-radius:12px;background:linear-gradient(90deg,var(--red-600),var(--red-700));color:white}
+
+    /* footer */
+    footer{padding:36px 0;background:linear-gradient(180deg,#fff,var(--red-100));border-top:1px solid rgba(0,0,0,0.04)}
+
+    /* reveal */
+    .reveal{opacity:0;transform:translateY(18px);transition:all 600ms cubic-bezier(.2,.9,.3,1)}
+    .reveal.show{opacity:1;transform:translateY(0)}
+
+    /* modal */
+    .modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:200;opacity:0;pointer-events:none;transition:opacity 200ms}
+    .modal.show{opacity:1;pointer-events:auto}
+    .modal .box{width:92%;max-width:980px;background:#000;border-radius:10px;padding:12px}
+    .modal iframe{width:100%;height:520px;border-radius:6px}
+
+    /* responsive */
+    @media (max-width:980px){
+      .hero-grid{grid-template-columns:1fr}
+      .grid{grid-template-columns:repeat(2,1fr)}
+      nav ul{display:none}
+      .mobile-menu{display:inline-block}
+    }
+    @media (max-width:640px){
+      .grid{grid-template-columns:1fr}
+      .hero-title{font-size:32px}
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo">
+          <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="white" stroke="var(--red-700)" stroke-width="4"/><g transform="translate(28,30)" fill="var(--red-700)"><rect x="0" y="0" width="12" height="40" rx="3"></rect><rect x="18" y="0" width="12" height="28" rx="3"></rect><rect x="36" y="0" width="12" height="20" rx="3"></rect></g></svg>
+        </div>
+        <h1>CSAR</h1>
+        <div class="badge">Fashion • Films • Music</div>
+      </div>
+
+      <nav>
+        <ul>
+          <li><a href="#fashion">Clothes</a></li>
+          <li><a href="#movies">Films</a></li>
+          <li><a href="#music">Music</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div style="display:flex;gap:10px;align-items:center">
+        <button class="ghost" id="searchToggle">Search</button>
+        <button class="ghost" id="cartBtn">Cart <span id="cartCount" class="cart-count">0</span></button>
+        <button class="btn" id="subscribeBtn">Subscribe</button>
+        <button class="ghost mobile-menu" style="display:none">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero container">
+      <div class="hero-grid">
+        <div>
+          <h2 class="hero-title">CSAR — Where <span style="color:var(--red-700)">Style</span>, <span style="color:var(--red-700)">Sound</span> & <span style="color:var(--red-700)">Story</span> Collide</h2>
+          <p class="lead">Shop limited drop clothing, stream exclusive music, and watch original films produced by CSAR Studios.</p>
+
+          <div class="cta-row">
+            <button class="btn pulse" id="shopNow">Shop Fashion</button>
+            <button class="ghost" id="watchTrailers">Watch Trailers</button>
+            <button class="ghost" id="listenNow">Listen</button>
+          </div>
+
+          <div style="margin-top:26px;">
+            <div class="section-title">
+              <h3>Featured</h3>
+            </div>
+            <div class="grid" id="featured">
+              <article class="item reveal">
+                <img src="https://picsum.photos/seed/feat1/800/600" alt="Featured 1">
+                <h4>Studio Collab</h4>
+                <div class="meta"><small>Music • New</small><small>CSAR</small></div>
+              </article>
+              <article class="item reveal">
+                <img src="https://picsum.photos/seed/feat2/800/600" alt="Featured 2">
+                <h4>Street Red Jacket</h4>
+                <div class="meta"><small>Fashion</small><small>$120</small></div>
+              </article>
+              <article class="item reveal">
+                <img src="https://picsum.photos/seed/feat3/800/600" alt="Featured 3">
+                <h4>Edge of Rhythm</h4>
+                <div class="meta"><small>Film</small><small>Trailer</small></div>
+              </article>
+            </div>
+          </div>
+        </div>
+
+        <aside>
+          <div class="card reveal">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <strong>Now Playing</strong>
+              <small style="color:rgba(0,0,0,0.45)">CSAR Radio</small>
+            </div>
+
+            <div class="now" style="margin-top:12px;display:flex;gap:12px;align-items:center">
+              <div class="thumbnail">CS</div>
+              <div class="track">
+                <h4 id="nowTitle">Electric Night</h4>
+                <small id="nowArtist">DJ Lumo • 4:21</small>
+              </div>
+            </div>
+
+            <div style="margin-top:12px" class="player-mini">
+              <audio id="audioPlayer" controls preload="none">
+                <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+              </audio>
+            </div>
+
+            <div style="display:flex;gap:10px;margin-top:10px;justify-content:flex-end">
+              <button class="ghost" id="prev">⟵</button>
+              <button class="btn" id="playToggle">Play</button>
+              <button class="ghost" id="next">⟶</button>
+            </div>
+          </div>
+
+          <div style="height:18px"></div>
+
+          <div class="card reveal">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+              <strong>Trending Clips</strong>
+              <small style="color:rgba(0,0,0,0.45)">This week</small>
+            </div>
+
+            <div class="carousel" id="clipCarousel">
+              <div class="slides">
+                <div class="slide">
+                  <h4>Interview — Aya M.</h4>
+                  <p>Behind-the-scenes with Aya's new single.</p>
+                </div>
+                <div class="slide">
+                  <h4>Live Freestyle</h4>
+                  <p>Raw — 2 artists, 1 mic.</p>
+                </div>
+                <div class="slide">
+                  <h4>Studio Collab</h4>
+                  <p>How a beat becomes a hit.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Clothing (before Music) -->
+    <section id="fashion" class="container reveal">
+      <div class="section-title"><h2>CSAR Clothing — Latest Drops</h2></div>
+      <div class="grid" id="products">
+        <!-- products injected by JS -->
+      </div>
+      <div style="margin-top:12px;display:flex;justify-content:flex-end">
+        <button class="ghost" id="viewAll">View All Products</button>
+      </div>
+    </section>
+
+    <!-- Movies -->
+    <section id="movies" class="container reveal">
+      <div class="section-title"><h2>CSAR Studios — Films</h2></div>
+      <div class="grid" id="films">
+        <!-- films injected by JS -->
+      </div>
+    </section>
+
+    <!-- Shows -->
+    <section id="shows" class="container reveal">
+      <div class="section-title"><h2>Shows & Events</h2></div>
+      <div class="grid">
+        <article class="show reveal"><img src="https://picsum.photos/seed/21/800/500" alt="Event"><h4>Underground Beats</h4><p>Fri Oct 10 • 7PM</p></article>
+        <article class="show reveal"><img src="https://picsum.photos/seed/22/800/500" alt="Event"><h4>Classical Hour</h4><p>Sat Oct 11 • 3PM</p></article>
+        <article class="show reveal"><img src="https://picsum.photos/seed/23/800/500" alt="Event"><h4>Comedy Night</h4><p>Sun Oct 12 • 8PM</p></article>
+      </div>
+    </section>
+
+    <!-- Music (after Clothing & Movies) -->
+    <section id="music" class="container reveal">
+      <div class="section-title"><h2>CSAR Music — New Releases</h2></div>
+      <div style="display:flex;gap:18px;flex-wrap:wrap">
+        <div style="flex:1;min-width:220px"><div class="card reveal"><h4>Moonlight EP</h4><p>by DJ Lumo</p></div></div>
+        <div style="flex:1;min-width:220px"><div class="card reveal"><h4>City Nights</h4><p>by Aya M.</p></div></div>
+        <div style="flex:1;min-width:220px"><div class="card reveal"><h4>Raw & Live</h4><p>Various Artists</p></div></div>
+      </div>
+    </section>
+
+    <section id="gallery" class="container reveal"><div class="section-title"><h2>Gallery</h2></div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+        <img src="https://picsum.photos/seed/g1/400/260" style="width:100%;height:160px;object-fit:cover;border-radius:8px">
+        <img src="https://picsum.photos/seed/g2/400/260" style="width:100%;height:160px;object-fit:cover;border-radius:8px">
+        <img src="https://picsum.photos/seed/g3/400/260" style="width:100%;height:160px;object-fit:cover;border-radius:8px">
+        <img src="https://picsum.photos/seed/g4/400/260" style="width:100%;height:160px;object-fit:cover;border-radius:8px">
+      </div>
+    </section>
+
+    <section class="container reveal"><div class="strip"><div><h3 style="margin:0">Join CSAR</h3><small>Subscribe for movie premieres, music drops, and clothing releases</small></div>
+      <div style="display:flex;gap:12px;align-items:center"><input type="email" id="subscribeEmail" placeholder="your@email.com"><button class="btn" id="subscribeSubmit">Sign Up</button></div>
+    </div></section>
+
+    <section id="contact" class="container reveal"><div class="section-title"><h2>Contact</h2></div>
+      <p>For collaborations, business inquiries, or media coverage — reach out to us.</p>
+      <form id="contactForm" style="display:flex;flex-direction:column;gap:8px;max-width:540px">
+        <input placeholder="Your name" required>
+        <input placeholder="Your email" required>
+        <textarea placeholder="Message" rows="5" required></textarea>
+        <div style="display:flex;gap:10px"><button class="btn" type="submit">Send</button><button class="ghost" type="reset">Clear</button></div>
+      </form>
+    </section>
+
+  </main>
+
+  <footer><div class="container" style="display:flex;justify-content:space-between;align-items:center"><div><strong>CSAR</strong><div style="color:rgba(0,0,0,0.6)">© CSAR 2025 — Fashion | Films | Music</div></div><div style="display:flex;gap:12px;align-items:center"><small>Follow</small><a href="#">Instagram</a><a href="#">YouTube</a><a href="#">TikTok</a></div></div></footer>
+
+  <!-- Trailer modal -->
+  <div class="modal" id="trailerModal" aria-hidden="true"><div class="box"><button id="closeTrailer" class="ghost" style="float:right;margin-bottom:8px">Close</button><iframe id="trailerFrame" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div></div>
+
+  <!-- Cart modal -->
+  <div class="modal" id="cartModal" aria-hidden="true"><div class="box" style="padding:18px;background:var(--white);color:#111"><button id="closeCart" class="ghost" style="float:right;margin-bottom:8px">Close</button><h3>Your Cart</h3><div id="cartItems"></div><div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px"><strong>Total: <span id="cartTotal">$0</span></strong><button class="btn" id="checkout">Checkout</button></div></div></div>
+
+  <script>
+    // --- Data (placeholder) ---
+    const PRODUCTS = [
+      {id:1,name:'Street Red Jacket',price:120,img:'https://picsum.photos/seed/cloth1/800/600',desc:'Bold, warm and water-resistant.'},
+      {id:2,name:'White Wave Hoodie',price:90,img:'https://picsum.photos/seed/cloth2/800/600',desc:'Soft cotton, oversized fit.'},
+      {id:3,name:'Bold Culture Tee',price:45,img:'https://picsum.photos/seed/cloth3/800/600',desc:'Signature CSAR print.'},
+      {id:4,name:'CSAR Beanie',price:25,img:'https://picsum.photos/seed/cloth4/800/600',desc:'Cozy and stylish.'}
+    ];
+
+    const FILMS = [
+      {id:'f1',title:'Edge of Rhythm',runtime:'1h 54m',poster:'https://picsum.photos/seed/movie1/800/600',trailer:'https://www.youtube.com/embed/dQw4w9WgXcQ'},
+      {id:'f2',title:'Threads of Fame',runtime:'2h 03m',poster:'https://picsum.photos/seed/movie2/800/600',trailer:'https://www.youtube.com/embed/dQw4w9WgXcQ'},
+      {id:'f3',title:'Red Horizon',runtime:'1h 48m',poster:'https://picsum.photos/seed/movie3/800/600',trailer:'https://www.youtube.com/embed/dQw4w9WgXcQ'}
+    ];
+
+    // --- Utilities ---
+    function $(sel){return document.querySelector(sel)}
+    function $all(sel){return Array.from(document.querySelectorAll(sel))}
+
+    // --- Render products ---
+    const productsRoot = $('#products');
+    PRODUCTS.forEach(p=>{
+      const el = document.createElement('article'); el.className='item reveal';
+      el.innerHTML = `<img src="${p.img}" alt="${p.name}"><h4>${p.name}</h4><p>${p.desc}</p><div class="meta"><small>$${p.price}</small><button class="btn add-to-cart" data-id="${p.id}">Add</button></div>`;
+      productsRoot.appendChild(el);
+    });
+
+    // --- Render films ---
+    const filmsRoot = $('#films');
+    FILMS.forEach(f=>{
+      const el = document.createElement('article'); el.className='item reveal';
+      el.innerHTML = `<img class="poster" src="${f.poster}" alt="${f.title}"><h4>${f.title}</h4><p>${f.runtime}</p><div class="meta"><button class="btn watch-trailer" data-trailer="${f.trailer}">Watch Trailer</button></div>`;
+      filmsRoot.appendChild(el);
+    });
+
+    // --- Reveal observer ---
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); } }); },{threshold:0.12});
+    reveals.forEach(r=>io.observe(r));
+
+    // --- Carousel ---
+    const slides = document.querySelector('.slides');
+    let idx = 0; const total = document.querySelectorAll('.slide').length || 1;
+    function go(i){ if(slides) slides.style.transform = `translateX(-${i*100}%)`; }
+    setInterval(()=>{ idx=(idx+1)%total; go(idx); },3500);
+
+    // --- Trailer modal ---
+    const trailerModal = $('#trailerModal'); const trailerFrame = $('#trailerFrame');
+    $all('.watch-trailer').forEach(btn=> btn.addEventListener('click', ()=>{ trailerFrame.src = btn.dataset.trailer+'?autoplay=1'; trailerModal.classList.add('show'); trailerModal.setAttribute('aria-hidden','false'); }));
+    $('#closeTrailer').addEventListener('click', ()=>{ trailerFrame.src=''; trailerModal.classList.remove('show'); trailerModal.setAttribute('aria-hidden','true'); });
+    trailerModal.addEventListener('click', e=>{ if(e.target===trailerModal){ trailerFrame.src=''; trailerModal.classList.remove('show'); trailerModal.setAttribute('aria-hidden','true'); } });
+
+    // --- Cart (localStorage) ---
+    const cartModal = $('#cartModal'); const cartItemsRoot = $('#cartItems'); const cartCount = $('#cartCount'); const cartTotal = $('#cartTotal');
+    let CART = JSON.parse(localStorage.getItem('csar_cart')||'[]');
+    function saveCart(){ localStorage.setItem('csar_cart', JSON.stringify(CART)); renderCart(); }
+    function renderCart(){ cartItemsRoot.innerHTML=''; let total=0; if(CART.length===0) cartItemsRoot.innerHTML='<p>Your cart is empty.</p>'; CART.forEach(ci=>{ const p = PRODUCTS.find(x=>x.id===ci.id); const row = document.createElement('div'); row.style.display='flex'; row.style.gap='10px'; row.style.alignItems='center'; row.style.marginBottom='8px'; row.innerHTML=`<img src="${p.img}" width="64" style="border-radius:6px"><div style="flex:1"><strong>${p.name}</strong><div>$${p.price} × ${ci.qty}</div></div><div><button class="ghost qty-minus" data-id="${p.id}">-</button><button class="ghost qty-plus" data-id="${p.id}">+</button></div>`; cartItemsRoot.appendChild(row); total += p.price * ci.qty; }); cartTotal.textContent = '$'+total; cartCount.textContent = CART.reduce((s,i)=>s+i.qty,0); }
+    function addToCart(id,qty=1){ const idx = CART.findIndex(x=>x.id===id); if(idx>-1) CART[idx].qty += qty; else CART.push({id,qty}); saveCart(); }
+    productsRoot.addEventListener('click', e=>{ if(e.target.matches('.add-to-cart')){ addToCart(parseInt(e.target.dataset.id,10)); alert('Added to cart'); } });
+    cartItemsRoot && cartItemsRoot.addEventListener('click', e=>{ if(e.target.matches('.qty-plus')){ const id=parseInt(e.target.dataset.id,10); const c=CART.find(x=>x.id===id); c.qty++; saveCart(); } if(e.target.matches('.qty-minus')){ const id=parseInt(e.target.dataset.id,10); const i=CART.findIndex(x=>x.id===id); if(i>-1){ CART[i].qty--; if(CART[i].qty<=0) CART.splice(i,1); saveCart(); } } });
+    $('#cartBtn').addEventListener('click', ()=>{ renderCart(); cartModal.classList.add('show'); cartModal.setAttribute('aria-hidden','false'); });
+    $('#closeCart').addEventListener('click', ()=>{ cartModal.classList.remove('show'); cartModal.setAttribute('aria-hidden','true'); });
+    cartModal.addEventListener('click', e=>{ if(e.target===cartModal){ cartModal.classList.remove('show'); cartModal.setAttribute('aria-hidden','true'); } });
+    $('#checkout').addEventListener('click', ()=>{ if(CART.length===0){ alert('Cart empty'); return; } alert('Demo checkout — thank you!'); CART=[]; saveCart(); cartModal.classList.remove('show'); cartModal.setAttribute('aria-hidden','true'); });
+    saveCart();
+
+    // --- Audio small controls ---
+    const audio = $('#audioPlayer'); const playToggle = $('#playToggle'); playToggle.addEventListener('click', ()=>{ if(audio.paused){ audio.play(); playToggle.textContent='Pause'; } else { audio.pause(); playToggle.textContent='Play'; } });
+
+    // --- CTA buttons ---
+    $('#shopNow').addEventListener('click', ()=>{ $('#fashion').scrollIntoView({behavior:'smooth'}); });
+    $('#watchTrailers').addEventListener('click', ()=>{ $('#movies').scrollIntoView({behavior:'smooth'}); });
+    $('#listenNow').addEventListener('click', ()=>{ $('#music').scrollIntoView({behavior:'smooth'}); });
+
+    // subscribe demo
+    $('#subscribeSubmit').addEventListener('click', ()=>{ const email = $('#subscribeEmail').value; if(!email) return alert('Enter email'); alert('Thanks — subscribed: '+email); $('#subscribeEmail').value=''; });
+
+    // contact demo
+    $('#contactForm').addEventListener('submit', e=>{ e.preventDefault(); alert('Thanks for your message — demo only'); e.target.reset(); });
+
+    // accessibility: close modals with Esc
+    window.addEventListener('keydown', e=>{ if(e.key==='Escape'){ if(trailerModal.classList.contains('show')){ trailerFrame.src=''; trailerModal.classList.remove('show'); } if(cartModal.classList.contains('show')) cartModal.classList.remove('show'); } });
+
+  </script>
+</body>
+</html>
